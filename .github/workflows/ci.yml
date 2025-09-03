@@ -14,8 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: build image 
-        run: docker build -t ladimension237/my-portfolio .
-      - name: push iamge 
+        run: docker build -t ${{secrets.REGISTRY_USER}}/portfolio .
+      - name: push image
         run: |
-             docker login -u ladimension237 -p ${{secret.REGISTRY_PASS}}
-             docker push ladimension237/my-portfolio
+             docker login -u ${{secrets.REGISTRY_USER}} -p ${{secrets.REGISTRY_PASS}}
+             docker push ${{secrets.REGISTRY_USER}}/portfolio
