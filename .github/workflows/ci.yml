@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+ 
+jobs:
+  
+  build:
+   
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: build image 
+        run: docker build -t ladimension237/my-portfolio .
+      - name: push iamge 
+        run: |
+             docker login -u ladimension237 -p ${{secret.REGISTRY_PASS}}
+             docker push ladimension237/my-portfolio
