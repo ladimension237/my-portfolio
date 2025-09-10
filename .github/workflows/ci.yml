@@ -13,9 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: build image 
-        run: docker build -t ${{secrets.REGISTRY_USER}}/my-portfolio .
+      - name: build image
+        run: |
+              docker build -t ${{secrets.REGISTRY_USER}}/my-portfolio:${{gitgthub.run_number}} .
+              docker build -t ${{secrets.REGISTRY_USER}}/my-portfolio .
       - name: push image
         run: |
              docker login -u ${{secrets.REGISTRY_USER}} -p ${{secrets.REGISTRY_PASS}}
+             docker push ${{secrets.REGISTRY_USER}}/my-portfolio:${{gitgthub.run_number}}
              docker push ${{secrets.REGISTRY_USER}}/my-portfolio
